@@ -3,6 +3,7 @@ var currentHealth = 10;
 var damageMulti = 1;
 var chosenDiff;
 var operatorsAvailable = 4;
+var healthIndicator = document.getElementById("healthIndicator");
 
 function diffDamage(){
 	if(chosenDiff == "easy"){
@@ -12,6 +13,7 @@ function diffDamage(){
 	}else if(chosenDiff == "hard"){
 		currentHealth - currentHealth;
 	}
+	healthIndicator.innerHTML = currentHealth + "/" + maxHealth;
 }
 
 function questionCreator(){
@@ -40,10 +42,13 @@ function hardQuestion(){
 			return [number1 + " - " + number2, number1 - number2];
 			break;
 		case 2:
-			return [number1 + " * " + number2, number1 * number2];
+			return [number1 + " x " + number2, number1 * number2];
 			break;
 		case 3:
 			return [number1 + " / " + number2, Math.ceil(number1 / number2)];
+			break;
+		case 4:
+			return [number1 + "^" + number2, number1 ** number2];
 			break;
 	}
 }

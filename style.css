@@ -19,3 +19,8 @@ body{
 input{
 	display: none;
 }
+
+#healthIndicator{
+	text-align: left;
+	font-size: 400%;
+}
