@@ -8,19 +8,43 @@ body{
 	background-color: black;
 }
 
+input{
+	width: 4%;
+	height: 2%;
+	margin-bottom: 1%
+}
+
+h1, p{
+	font-size: 300%;
+}
+
+button{
+	width: 12%;
+	height: 6%;
+	margin-left: 3%;
+	font-size: 120%;
+}
+
+#inputDiv{
+	min-height: 100% !important;
+	height: 10%;
+	margin-top: 45%;
+}
+
+#input{
+	width: 12%;
+}
+
+#healthIndicator{
+	text-align: left;
+	font-size: 350%;
+	margin-bottom: 2%;
+}
+
 #container{
 	width: 80%;
 	margin: 0px auto;
 	height: 90%;
 	background-color: white;
 	text-align: center;
-}
-
-input{
-	display: none;
-}
-
-#healthIndicator{
-	text-align: left;
-	font-size: 400%;
 }

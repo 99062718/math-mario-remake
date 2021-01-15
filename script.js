@@ -1,28 +1,50 @@
 var maxHealth = 10;
 var currentHealth = 10;
 var damageMulti = 1;
-var chosenDiff;
-var operatorsAvailable = 4;
+var chosenDiff = "hard";
+var operatorsAvailable = 6;
 var healthIndicator = document.getElementById("healthIndicator");
+const randomNumber = [50, 200, 1000];
+var buttons = [];
+var text = [document.getElementById("title"), document.getElementById("description")];
 
-function diffDamage(){
-	if(chosenDiff == "easy"){
-		currentHealth - 2;
-	}else if(chosenDiff == "medium"){
-		currentHealth - 5;
-	}else if(chosenDiff == "hard"){
-		currentHealth - currentHealth;
+//----------------------Health system
+
+function healthCalculator(healOrDamage){
+	switch(healOrDamage){
+		case "heal":
+			currentHealth += 5;
+
+			if(currentHealth > maxHealth){
+				currentHealth = currentHealth - (currentHealth - maxHealth);
+			}
+			break;
+		case "damage":
+			if(chosenDiff == "easy"){
+				currentHealth - 2;
+			}else if(chosenDiff == "medium"){
+				currentHealth - 5;
+			}else if(chosenDiff == "hard"){
+				currentHealth - currentHealth;
+			}
+
+			if(currentHealth < 0){
+				currentHealth = 0;
+			}
+			break;
 	}
 	healthIndicator.innerHTML = currentHealth + "/" + maxHealth;
 }
 
+//----------------------Question creators
+
 function questionCreator(){
 	switch(chosenDiff){
 		case "easy":
-			return Math.ceil(Math.random() * 50);
+			return Math.ceil(Math.random() * randomNumber[0]);
 			break;
 		case "medium":
-			return Math.ceil(Math.random() * 200);
+			return Math.ceil(Math.random() * randomNumber[1]);
 			break;
 		case "hard":
 			return hardQuestion();
@@ -30,8 +52,10 @@ function questionCreator(){
 }
 
 function hardQuestion(){
-	var number1 = Math.ceil(Math.random() * 1000);
-	var number2 = Math.ceil(Math.random() * 1000);
+	var number1 = Math.ceil(Math.random() * randomNumber[2]);
+	var number2 = Math.ceil(Math.random() * randomNumber[2]);
+	var exponentialNumber = Math.ceil(Math.random() * 10);
+	var devisionNumber = Math.ceil(Math.random() * 60);
 	var operator = Math.floor(Math.random() * operatorsAvailable);
 
 	switch(operator){
@@ -45,10 +69,52 @@ function hardQuestion(){
 			return [number1 + " x " + number2, number1 * number2];
 			break;
 		case 3:
-			return [number1 + " / " + number2, Math.ceil(number1 / number2)];
+			return [number1 + " / " + devisionNumber, Math.ceil(number1 / devisionNumber)];
 			break;
 		case 4:
-			return [number1 + "^" + number2, number1 ** number2];
+			return [number1 + "^" + exponentialNumber, number1 ** exponentialNumber];
+			break;
+		case 5:
+			return ["What is the remainder of " + number1 + " / " + devisionNumber, number1 % devisionNumber];
 			break;
 	}
+}
+
+//----------------------Question checker
+
+function questionChecker(correctAnswer){
+	var playerAnswer = document.getElementById("input").value;
+	if(playerAnswer == correctAnswer){
+
+	}else{
+		healthCalculator("damage");
+	}
+}
+
+//----------------------Buttons
+
+function buttonCreator(amount){
+	for(i = 0; i < amount; i++){
+		buttons[i] = document.createElement("BUTTON");
+		buttons[i].id = "button" + i;
+		document.getElementById("inputDiv").appendChild(buttons[i]);
+	}
+}
+
+function buttonModify(modifier){
+	for(i = 0; i < buttons.length; i++){
+		if(modifier[i] == undefined){
+			document.getElementById("button" + i).style.display = "none";
+		}else{
+			document.getElementById("button" + i).style.display = "inline";
+			document.getElementById("button" + i).innerHTML = modifier[i];
+		}
+	}
+}
+
+buttonCreator(5);
+buttonModify([undefined, undefined, undefined, undefined, undefined]);
+
+for(i = 0; i < 20; i++){
+	console.log(questionCreator());
 }
