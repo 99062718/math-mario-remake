@@ -10,8 +10,9 @@ body{
 
 input{
 	width: 4%;
-	height: 2%;
-	margin-bottom: 1%
+	height: 12%;
+	margin-top: 2%;
+	margin-bottom: 1%;
 }
 
 h1, p{
@@ -20,15 +21,16 @@ h1, p{
 
 button{
 	width: 12%;
-	height: 6%;
+	height: 24%;
 	margin-left: 3%;
+	margin-top: 3%;
 	font-size: 120%;
 }
 
 #inputDiv{
-	min-height: 100% !important;
-	height: 10%;
-	margin-top: 45%;
+	height: 20%;
+	margin-top: 40%;
+	background-color: rgba(255, 255, 255, 60%);
 }
 
 #input{
@@ -47,4 +49,10 @@ button{
 	height: 90%;
 	background-color: white;
 	text-align: center;
+	background-size: cover;
+    background-position: 50% 50%;
+}
+
+#textDiv{
+	background-color: rgba(255, 255, 255, 60%);
 }

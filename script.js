@@ -1,12 +1,15 @@
 var maxHealth = 10;
 var currentHealth = 10;
 var damageMulti = 1;
-var chosenDiff = "hard";
+var chosenDiff;
 var operatorsAvailable = 6;
 var healthIndicator = document.getElementById("healthIndicator");
 const randomNumber = [50, 200, 1000];
 var buttons = [];
 var text = [document.getElementById("title"), document.getElementById("description")];
+var container = document.getElementById("container");
+var inputClass = document.getElementsByClassName("inputs");
+var currentRoom;
 
 //----------------------Health system
 
@@ -28,7 +31,7 @@ function healthCalculator(healOrDamage){
 				currentHealth - currentHealth;
 			}
 
-			if(currentHealth < 0){
+			if(currentHealth <= 0){
 				currentHealth = 0;
 			}
 			break;
@@ -91,7 +94,7 @@ function questionChecker(correctAnswer){
 	}
 }
 
-//----------------------Buttons
+//----------------------Text and input
 
 function buttonCreator(amount){
 	for(i = 0; i < amount; i++){
@@ -112,9 +115,33 @@ function buttonModify(modifier){
 	}
 }
 
-buttonCreator(5);
-buttonModify([undefined, undefined, undefined, undefined, undefined]);
-
-for(i = 0; i < 20; i++){
-	console.log(questionCreator());
+function inputModify(showOrRemove){
+	for(i = 0; i < inputClass.length; i++){
+		inputClass[i].style.display = showOrRemove;
+	}
 }
+
+//----------------------Events
+
+function button0Events(){
+	switch(currentRoom){
+		case "titleScreen":
+			diffSelec();
+			break;
+	}
+}
+
+//----------------------Rooms
+
+function titleScreen(){
+	buttonModify(["Start",,,,]);
+	text[0].innerHTML = "Math Mario: remake";
+	text[1].innerHTML = "PLEASE STILL DON'T SUE ME NINTENDO!";
+	container.style.backgroundImage = "url('images/mario.jpg')";
+	inputModify("none");
+	currentRoom = "titleScreen";
+}
+
+buttonCreator(5);
+document.body.onload = titleScreen();
+document.getElementById("button0").addEventListener("click", button0Events);
