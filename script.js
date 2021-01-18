@@ -1,14 +1,14 @@
-var maxHealth = 10;
+const maxHealth = 10;
 var currentHealth = 10;
 var damageMulti = 1;
 var chosenDiff;
-var operatorsAvailable = 6;
-var healthIndicator = document.getElementById("healthIndicator");
+var operatorsAvailable = 4;
+const healthIndicator = document.getElementById("healthIndicator");
 const randomNumber = [50, 200, 1000];
 var buttons = [];
-var text = [document.getElementById("title"), document.getElementById("description")];
-var container = document.getElementById("container");
-var inputClass = document.getElementsByClassName("inputs");
+const text = [document.getElementById("title"), document.getElementById("description")];
+const container = document.getElementById("container");
+const inputClass = document.getElementsByClassName("inputs");
 var currentRoom;
 
 //----------------------Health system
@@ -121,12 +121,40 @@ function inputModify(showOrRemove){
 	}
 }
 
+function textModify(modifier){
+	for(i = 0; i < text.length; i++){
+		text[i].innerHTML = modifier[i];
+	}
+}
+
 //----------------------Events
 
 function button0Events(){
 	switch(currentRoom){
 		case "titleScreen":
 			diffSelec();
+			break;
+		case "diffSelec":
+			chosenDiff = "easy";
+			begin();
+			break;
+	}
+}
+
+function button1Events(){
+	switch(currentRoom){
+		case "diffSelec":
+			chosenDiff = "medium";
+			begin();
+			break;
+	}
+}
+
+function button2Events(){
+	switch(currentRoom){
+		case "diffSelec":
+			chosenDiff = "hard";
+			begin();
 			break;
 	}
 }
@@ -135,13 +163,30 @@ function button0Events(){
 
 function titleScreen(){
 	buttonModify(["Start",,,,]);
-	text[0].innerHTML = "Math Mario: remake";
-	text[1].innerHTML = "PLEASE STILL DON'T SUE ME NINTENDO!";
+	textModify(["Math Mario: remake", "PLEASE STILL DON'T SUE ME NINTENDO!"]);
 	container.style.backgroundImage = "url('images/mario.jpg')";
 	inputModify("none");
 	currentRoom = "titleScreen";
 }
 
+function diffSelec(){
+	buttonModify(["Easy", "Medium", "Hard",,]);
+	textModify(["Difficulty selector", "Select a difficulty"]);
+	container.style.backgroundImage = "url('images/mario.jpg')";
+	inputModify("none");
+	currentRoom = "diffSelec";
+}
+
+function begin(){
+	buttonModify(["Continue",,,,]);
+	textModify(["The castle has been taken over!", "The princess has been taken by the menacing dragon! And they have taken over the castle!"]);
+	container.style.backgroundImage = "url('images/dragon.jpg')";
+	inputModify("none");
+	currentRoom = "begin";
+}
+
 buttonCreator(5);
 document.body.onload = titleScreen();
 document.getElementById("button0").addEventListener("click", button0Events);
+document.getElementById("button1").addEventListener("click", button1Events);
+document.getElementById("button2").addEventListener("click", button2Events);
