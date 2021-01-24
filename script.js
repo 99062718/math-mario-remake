@@ -1,14 +1,14 @@
+const healthIndicator = document.getElementById("healthIndicator");
+const text = [document.getElementById("title"), document.getElementById("description")];
+const container = document.getElementById("container");
+const inputClass = document.getElementsByClassName("inputs");
+const randomNumber = [50, 200, 1000];
 const maxHealth = 10;
 var currentHealth = 10;
 var damageMulti = 1;
 var chosenDiff;
 var operatorsAvailable = 4;
-const healthIndicator = document.getElementById("healthIndicator");
-const randomNumber = [50, 200, 1000];
 var buttons = [];
-const text = [document.getElementById("title"), document.getElementById("description")];
-const container = document.getElementById("container");
-const inputClass = document.getElementsByClassName("inputs");
 var currentRoom;
 
 //----------------------Health system
@@ -138,6 +138,12 @@ function button0Events(){
 			chosenDiff = "easy";
 			begin();
 			break;
+		case "begin":
+			you();
+			break;
+		case "you":
+			villageAttack();
+			break;
 	}
 }
 
@@ -173,16 +179,31 @@ function diffSelec(){
 	buttonModify(["Easy", "Medium", "Hard",,]);
 	textModify(["Difficulty selector", "Select a difficulty"]);
 	container.style.backgroundImage = "url('images/mario.jpg')";
-	inputModify("none");
 	currentRoom = "diffSelec";
 }
 
 function begin(){
 	buttonModify(["Continue",,,,]);
-	textModify(["The castle has been taken over!", "The princess has been taken by the menacing dragon! And they have taken over the castle!"]);
+	textModify(["The castle has been taken over!", "The princess has been taken by the menacing dragon! And his minions have taken over the castle!"]);
 	container.style.backgroundImage = "url('images/dragon.jpg')";
-	inputModify("none");
 	currentRoom = "begin";
+}
+
+function you(){
+	buttonModify(["Continue",,,,]);
+	textModify(["You are a man from the village", "A land yet untouched by the dragon and his minions"]);
+	container.style.backgroundImage = "url('images/dragon.jpg')";
+	currentRoom = "you";
+}
+
+function villageAttack(){
+	switch(attackNumber){
+		case 1:
+			buttonModify(["Continue",,,,]);
+			textModify(["But that has now changed!", "Fend off the coming attackers!"]);
+			container.style.backgroundImage = "url('images/dragon.jpg')";
+	}
+	currentRoom = "villageAttack";
 }
 
 buttonCreator(5);
