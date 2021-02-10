@@ -10,6 +10,7 @@ var chosenDiff;
 var operatorsAvailable = 4;
 var buttons = [];
 var currentRoom;
+var currentSubRoom = [0];
 
 //----------------------Health system
 
@@ -127,6 +128,12 @@ function textModify(modifier){
 	}
 }
 
+function stageLoader(buttonInput, textInput, background, room){
+	buttonModify(buttonInput[room]);
+	textModify(textInput[room]);
+	container.style.backgroundImage = background[room];
+}
+
 //----------------------Events
 
 function button0Events(){
@@ -144,6 +151,9 @@ function button0Events(){
 		case "you":
 			villageAttack();
 			break;
+		case "villageAttack":
+			currentSubRoom[0] += 1;
+			villageAttack();
 	}
 }
 
@@ -197,13 +207,15 @@ function you(){
 }
 
 function villageAttack(){
-	switch(attackNumber){
-		case 1:
-			buttonModify(["Continue",,,,]);
-			textModify(["But that has now changed!", "Fend off the coming attackers!"]);
-			container.style.backgroundImage = "url('images/dragon.jpg')";
+	var buttonInput = [["Continue",,,,]];
+	var textInput = [["But that has now changed!", "Fend off the coming attackers!"]];
+	var background = ["url('images/dragon.jpg')"];
+	if(currentSubRoom < 1){
+		stageLoader(buttonInput, textInput, background, currentSubRoom);
+		currentRoom = "villageAttack";
+	}else{
+
 	}
-	currentRoom = "villageAttack";
 }
 
 buttonCreator(5);
